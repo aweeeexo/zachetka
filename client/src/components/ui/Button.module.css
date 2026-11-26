@@ -1,0 +1,98 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sm {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+
+.primary {
+  background: var(--primary-strong);
+  color: #fff;
+}
+.primary:not(:disabled):hover {
+  background: var(--fg);
+}
+
+.secondary {
+  background: var(--card);
+  color: var(--fg);
+  border-color: var(--fg);
+}
+.secondary:not(:disabled):hover {
+  background: var(--fg);
+  color: #fff;
+}
+
+.ghost {
+  background: transparent;
+  color: var(--fg);
+}
+.ghost:not(:disabled):hover {
+  background: var(--muted);
+}
+
+.danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+.danger:not(:disabled):hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+.accent {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.accent:not(:disabled):hover {
+  background: #f97316;
+}
+
+.iconOnly {
+  padding: 0;
+  width: 44px;
+}
+.sm.iconOnly {
+  width: 36px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

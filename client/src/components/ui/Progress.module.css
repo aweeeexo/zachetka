@@ -1,0 +1,43 @@
+.bar {
+  height: 8px;
+  border-radius: 8px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.ring {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+}
+
+.ring svg {
+  transform: rotate(-90deg);
+}
+
+.track {
+  stroke: var(--line);
+}
+
+.value {
+  stroke: var(--primary);
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.ringLabel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}

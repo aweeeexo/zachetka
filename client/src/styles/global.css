@@ -1,0 +1,102 @@
+/* Дизайн-токены — те же, что в презентации и на лендинге (мятный bento). */
+:root {
+  --primary: #0d9488;
+  --primary-strong: #0f766e; /* для текста и кнопок: контраст 5.5:1 на белом */
+  --secondary: #14b8a6;
+  --accent: #ea580c;
+  --accent-strong: #c2410c;
+  --accent-soft: #fff1e7;
+  --on-accent: #1c1917;
+  --bg: #f0fdfa;
+  --fg: #134e4a;
+  --card: #ffffff;
+  --muted: #e8f1f4;
+  --muted-fg: #475569;
+  --border: #ddf3ee;
+  --line: #e2eeec;
+  --tint: #ccfbf1;
+  --tint-2: #e6faf6;
+  --hl: #fed7aa;
+  --glow: #5eead4;
+  --warning-bg: #fef3c7;
+  --warning-fg: #92400e;
+  --danger: #b91c1c;
+  --danger-soft: #fee2e2;
+
+  --radius-lg: 24px;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(19, 78, 74, 0.04), 0 10px 30px rgba(19, 78, 74, 0.06);
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--primary-strong);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
