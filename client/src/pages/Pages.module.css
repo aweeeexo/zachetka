@@ -22,15 +22,17 @@
 }
 
 .sectionTitle {
-  font-size: 17px;
+  font-size: 18px;
+  line-height: 28px;
   font-weight: 700;
   margin-bottom: 12px;
 }
 
 .label {
-  font-size: 12.5px;
+  font-size: 12px;
+  line-height: 16px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--primary-strong);
 }
@@ -169,7 +171,8 @@
 }
 
 .stageTitle {
-  font-size: 21px;
+  font-size: 20px;
+  line-height: 28px;
   font-weight: 700;
 }
 
@@ -217,11 +220,21 @@
 .stageChip {
   border: 1.5px solid var(--border);
   background: var(--card);
-  border-radius: 999px;
-  padding: 7px 14px;
+  border-radius: 10px;
+  padding: 8px 14px;
   font-size: 14px;
+  line-height: 20px;
   font-weight: 600;
   cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.stageChip:hover {
+  border-color: var(--primary);
+  color: var(--primary-strong);
 }
 
 .stageChip[aria-pressed='true'] {

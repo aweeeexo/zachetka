@@ -4,24 +4,27 @@
   flex-direction: column;
   gap: 14px;
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+    transform var(--dur-move) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
 }
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(19, 78, 74, 0.1);
+  border-color: #b7ded7;
+  box-shadow: var(--shadow-hover);
 }
 
 .top {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .title {
   font-size: 20px;
+  line-height: 28px;
   font-weight: 700;
 }
 
@@ -43,13 +46,14 @@
 }
 
 .card:has(.link:focus-visible) {
-  outline: 3px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
 .stage {
   color: var(--muted-fg);
   font-size: 14px;
+  line-height: 20px;
 }
 
 .progressRow {
@@ -66,5 +70,6 @@
 .percent {
   font-weight: 700;
   font-size: 14px;
+  line-height: 20px;
   font-variant-numeric: tabular-nums;
 }

@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { api as defaultApi } from '../api';
 import type { Api } from '../api/types';
+import authReducer from '../features/auth/authSlice';
 import parseReducer from '../features/parse/parseSlice';
 import projectsReducer from '../features/projects/projectsSlice';
 import toastsReducer from '../features/toasts/toastsSlice';
 import type { ThunkExtra } from './thunk';
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   projects: projectsReducer,
   parse: parseReducer,
   toasts: toastsReducer,

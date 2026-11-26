@@ -1,9 +1,25 @@
 // Модель данных (совпадает с презентацией этапа 1): User → Project → Stage → Requirement.
-// На этапе 3 пользователь один (локальный), сущность User появится вместе с авторизацией на этапе 4.
 
 export type Priority = 'required' | 'bonus';
 export type RequirementStatus = 'todo' | 'done';
 export type LoadStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export interface LoginInput {
+  email: string;
+  password: string;
+}
+
+export interface RegisterInput {
+  name: string;
+  email: string;
+  password: string;
+}
 
 export interface Requirement {
   id: string;

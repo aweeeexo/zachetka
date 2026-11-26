@@ -1,4 +1,5 @@
 import { createSlice, isRejected, nanoid, type PayloadAction } from '@reduxjs/toolkit';
+import { loginUser, logoutUser, registerUser } from '../auth/authSlice';
 import {
   addRequirement,
   createProject,
@@ -48,6 +49,9 @@ const toastsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(loginUser.fulfilled, (state, action) => push(state, 'success', `Добро пожаловать, ${action.payload.name}`))
+      .addCase(registerUser.fulfilled, (state, action) => push(state, 'success', `Аккаунт создан для ${action.payload.name}`))
+      .addCase(logoutUser.fulfilled, (state) => push(state, 'info', 'Вы вышли из аккаунта'))
       .addCase(createProject.fulfilled, (state, action) => push(state, 'success', `Проект «${action.payload.title}» создан`))
       .addCase(updateProject.fulfilled, (state) => push(state, 'success', 'Изменения сохранены'))
       .addCase(deleteProject.fulfilled, (state) => push(state, 'info', 'Проект удалён'))

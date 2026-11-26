@@ -4,55 +4,72 @@
   justify-content: center;
   gap: 8px;
   min-height: 44px;
-  padding: 0 18px;
-  border-radius: 999px;
-  border: 2px solid transparent;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
   font-weight: 600;
-  font-size: 15px;
-  line-height: 1;
+  font-size: 16px;
+  line-height: 24px;
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
   transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    border-color 0.15s ease;
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.button:not(:disabled):active {
+  transform: scale(0.98);
 }
 
 .button:disabled,
 .button[aria-disabled='true'] {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .sm {
   min-height: 36px;
-  padding: 0 14px;
+  padding: 6px 12px;
+  border-radius: 10px;
   font-size: 14px;
+  line-height: 20px;
 }
 
 .primary {
   background: var(--primary-strong);
   color: #fff;
+  box-shadow: 0 1px 2px rgba(15, 47, 44, 0.12);
 }
+
 .primary:not(:disabled):hover {
   background: var(--fg);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px -4px rgba(15, 47, 44, 0.24);
 }
 
 .secondary {
   background: var(--card);
   color: var(--fg);
-  border-color: var(--fg);
+  border-color: var(--border);
+  box-shadow: 0 1px 2px rgba(15, 47, 44, 0.04);
 }
+
 .secondary:not(:disabled):hover {
-  background: var(--fg);
-  color: #fff;
+  background: var(--tint-2);
+  border-color: var(--primary);
+  color: var(--primary-strong);
+  transform: translateY(-1px);
 }
 
 .ghost {
   background: transparent;
   color: var(--fg);
 }
+
 .ghost:not(:disabled):hover {
   background: var(--muted);
 }
@@ -61,23 +78,27 @@
   background: var(--danger-soft);
   color: var(--danger);
 }
+
 .danger:not(:disabled):hover {
   background: var(--danger);
   color: #fff;
 }
 
 .accent {
-  background: var(--accent);
+  background: var(--primary);
   color: var(--on-accent);
 }
+
 .accent:not(:disabled):hover {
-  background: #f97316;
+  background: var(--primary-strong);
+  transform: translateY(-1px);
 }
 
 .iconOnly {
   padding: 0;
   width: 44px;
 }
+
 .sm.iconOnly {
   width: 36px;
 }

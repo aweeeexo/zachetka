@@ -1,16 +1,23 @@
 import type {
+  LoginInput,
   NewProjectInput,
   ParseResult,
   Project,
   ProjectPatch,
+  RegisterInput,
   RequirementInput,
   RequirementPatch,
+  User,
 } from '../types';
 
 /**
  * Контракт API (совпадает с предварительным REST-контрактом из презентации).
  * На этапе 3 его реализует mockApi (localStorage), на этапе 4 — httpApi (fetch к серверу).
  *
+ *   GET    /api/auth/me                      → getCurrentUser
+ *   POST   /api/auth/login                   → login
+ *   POST   /api/auth/register                → register
+ *   POST   /api/auth/logout                  → logout
  *   GET    /api/projects                     → listProjects
  *   GET    /api/projects/:id                 → getProject
  *   POST   /api/projects                     → createProject
@@ -22,6 +29,10 @@ import type {
  *   POST   /api/parse                        → parseAssignment
  */
 export interface Api {
+  getCurrentUser(): Promise<User | null>;
+  login(input: LoginInput): Promise<User>;
+  register(input: RegisterInput): Promise<User>;
+  logout(): Promise<void>;
   listProjects(): Promise<Project[]>;
   getProject(id: string): Promise<Project>;
   createProject(input: NewProjectInput): Promise<Project>;

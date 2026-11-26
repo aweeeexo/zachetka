@@ -1,34 +1,46 @@
-/* Дизайн-токены — те же, что в презентации и на лендинге (мятный bento). */
+/* Дизайн-токены: спокойная мятно-бирюзовая палитра, один акцент, шкала Tailwind. */
 :root {
   --primary: #0d9488;
-  --primary-strong: #0f766e; /* для текста и кнопок: контраст 5.5:1 на белом */
+  --primary-strong: #0f766e; /* контраст > 5.4:1 на белом */
   --secondary: #14b8a6;
-  --accent: #ea580c;
-  --accent-strong: #c2410c;
-  --accent-soft: #fff1e7;
-  --on-accent: #1c1917;
-  --bg: #f0fdfa;
-  --fg: #134e4a;
+  --accent: #0f766e;
+  --accent-strong: #115e59;
+  --accent-soft: #e6f6f4;
+  --on-accent: #ffffff;
+
+  --bg: #f6faf9;
+  --fg: #0f2f2c;
   --card: #ffffff;
-  --muted: #e8f1f4;
-  --muted-fg: #475569;
-  --border: #ddf3ee;
-  --line: #e2eeec;
-  --tint: #ccfbf1;
-  --tint-2: #e6faf6;
-  --hl: #fed7aa;
+  --muted: #eaf2f0;
+  --muted-fg: #4b6360;
+  --border: #d9eae6;
+  --line: #e4f0ed;
+  --tint: #d5f3ed;
+  --tint-2: #edf7f5;
+  --hl: #cceee7;
   --glow: #5eead4;
+
   --warning-bg: #fef3c7;
   --warning-fg: #92400e;
   --danger: #b91c1c;
   --danger-soft: #fee2e2;
 
-  --radius-lg: 24px;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --shadow: 0 1px 2px rgba(19, 78, 74, 0.04), 0 10px 30px rgba(19, 78, 74, 0.06);
-  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-  --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --hero-gradient: linear-gradient(90deg, #0b2b28 0%, #0f766e 100%);
+
+  --radius-lg: 20px;
+  --radius: 14px;
+  --radius-sm: 8px;
+
+  --shadow: 0 1px 2px rgba(15, 47, 44, 0.04), 0 8px 24px -4px rgba(15, 47, 44, 0.06);
+  --shadow-hover: 0 2px 6px rgba(15, 47, 44, 0.05), 0 16px 36px -6px rgba(15, 47, 44, 0.1);
+  --shadow-nav: 0 4px 20px -2px rgba(15, 47, 44, 0.08), 0 1px 2px rgba(15, 47, 44, 0.04);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 300ms;
+  --dur-move: 500ms;
+
+  --font: 'Manrope', system-ui, -apple-system, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, Consolas, monospace;
 }
 
 *,
@@ -39,32 +51,54 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
+  position: relative;
   margin: 0;
   font-family: var(--font);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 24px;
   color: var(--fg);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Тонкая текстура зерна, чтобы плоский фон имел глубину без градиентов. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
 }
 
 h1,
 h2,
 h3 {
   margin: 0;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 p {
   margin: 0;
+  text-wrap: pretty;
 }
 
 a {
   color: var(--primary-strong);
+  transition: color var(--dur-fast) var(--ease);
 }
 
 button,
@@ -76,7 +110,7 @@ textarea {
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -93,6 +127,10 @@ textarea {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {

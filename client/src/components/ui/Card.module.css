@@ -13,11 +13,13 @@
 
 .soft {
   background: var(--tint-2);
+  box-shadow: none;
 }
 
 .tint {
   background: var(--tint);
-  border-color: var(--tint);
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .dark {
@@ -30,30 +32,35 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12.5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
-  line-height: 1.3;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
 }
 
 .neutral {
   background: var(--muted);
   color: var(--fg);
 }
+
 .primary {
   background: var(--tint);
   color: var(--primary-strong);
 }
+
 .accent {
   background: var(--accent-soft);
   color: var(--accent-strong);
 }
+
 .warning {
   background: var(--warning-bg);
   color: var(--warning-fg);
 }
+
 .danger {
   background: var(--danger-soft);
   color: var(--danger);

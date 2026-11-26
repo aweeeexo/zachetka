@@ -32,4 +32,6 @@ export function browserStorage(): KeyValueStorage {
 export const STORAGE_KEYS = {
   projects: 'zachetka:projects:v1',
   simulateErrors: 'zachetka:simulate-errors',
+  users: 'zachetka:users:v1',
+  session: 'zachetka:session:v1',
 } as const;

@@ -4,11 +4,29 @@
 
 import { createId } from '../lib/id';
 import { parseAssignment as runParser } from '../lib/parseAssignment';
-import { validateProjectMeta, validateRequirementText, validateSourceText, validateDraft, hasErrors } from '../lib/validation';
-import type { NewProjectInput, Project, Requirement } from '../types';
+import {
+  validateProjectMeta,
+  validateRequirementText,
+  validateSourceText,
+  validateDraft,
+  validateLogin,
+  validateRegister,
+  hasErrors,
+} from '../lib/validation';
+import type { LoginInput, NewProjectInput, Project, RegisterInput, Requirement, User } from '../types';
 import { buildProject, createDemoProject } from './seed';
 import { STORAGE_KEYS, type KeyValueStorage } from './storage';
 import { ApiError, type Api } from './types';
+
+interface StoredUser extends User {
+  password: string;
+}
+
+export const DEMO_CREDENTIALS = {
+  email: 'student@shad.ru',
+  password: 'zachetka2026',
+  name: 'Александр',
+} as const;
 
 export interface MockApiOptions {
   storage: KeyValueStorage;
@@ -74,7 +92,98 @@ export function createMockApi({ storage, delayMs = 450, now = () => new Date(), 
     return project;
   }
 
+  function readUsers(): StoredUser[] {
+    const raw = storage.getItem(STORAGE_KEYS.users);
+    if (raw === null) {
+      const initial: StoredUser[] = [
+        {
+          id: 'demo-user',
+          name: DEMO_CREDENTIALS.name,
+          email: DEMO_CREDENTIALS.email,
+          password: DEMO_CREDENTIALS.password,
+        },
+      ];
+      storage.setItem(STORAGE_KEYS.users, JSON.stringify(initial));
+      return initial;
+    }
+    try {
+      const parsed = JSON.parse(raw) as unknown;
+      return Array.isArray(parsed) ? (parsed as StoredUser[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  const writeUsers = (users: StoredUser[]) => storage.setItem(STORAGE_KEYS.users, JSON.stringify(users));
+
+  const toPublicUser = ({ id, name, email }: StoredUser): User => ({ id, name, email });
+
+  function readSession(): User | null {
+    const raw = storage.getItem(STORAGE_KEYS.session);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw) as Partial<User>;
+      if (parsed && typeof parsed.id === 'string' && typeof parsed.email === 'string' && typeof parsed.name === 'string') {
+        return { id: parsed.id, name: parsed.name, email: parsed.email };
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  }
+
+  const writeSession = (user: User | null) => {
+    if (user) storage.setItem(STORAGE_KEYS.session, JSON.stringify(user));
+    else storage.removeItem(STORAGE_KEYS.session);
+  };
+
   return {
+    getCurrentUser: async () => clone(readSession()),
+
+    login: (input: LoginInput) =>
+      request(() => {
+        const errors = validateLogin(input);
+        if (hasErrors(errors)) {
+          throw new ApiError(400, errors.email ?? errors.password ?? 'Проверьте email и пароль');
+        }
+        const email = input.email.trim().toLowerCase();
+        const found = readUsers().find((u) => u.email.toLowerCase() === email && u.password === input.password);
+        if (!found) {
+          throw new ApiError(401, 'Неверный email или пароль');
+        }
+        const publicUser = toPublicUser(found);
+        writeSession(publicUser);
+        return publicUser;
+      }),
+
+    register: (input: RegisterInput) =>
+      request(() => {
+        const errors = validateRegister(input);
+        if (hasErrors(errors)) {
+          throw new ApiError(400, errors.name ?? errors.email ?? errors.password ?? 'Ошибка валидации');
+        }
+        const users = readUsers();
+        const email = input.email.trim().toLowerCase();
+        if (users.some((u) => u.email.toLowerCase() === email)) {
+          throw new ApiError(409, 'Аккаунт с таким email уже существует');
+        }
+        const created: StoredUser = {
+          id: createId(),
+          name: input.name.trim(),
+          email,
+          password: input.password,
+        };
+        writeUsers([...users, created]);
+        const publicUser = toPublicUser(created);
+        writeSession(publicUser);
+        return publicUser;
+      }),
+
+    logout: () =>
+      request(() => {
+        writeSession(null);
+      }),
+
     listProjects: () => request(() => read()),
 
     getProject: (id) => request(() => findProject(read(), id)),

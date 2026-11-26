@@ -16,27 +16,42 @@
   padding: 0;
   list-style: none;
   font-size: 14px;
+  line-height: 20px;
   color: var(--muted-fg);
 }
 
 .crumbs a {
   color: var(--muted-fg);
+  text-decoration: none;
+}
+
+.crumbs a:hover {
+  color: var(--fg);
+  text-decoration: underline;
 }
 
 .title {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 800;
+  font-size: clamp(30px, 3.6vw, 36px);
+  font-weight: 700;
+  line-height: 1.15;
   letter-spacing: -0.03em;
+  background: var(--hero-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .subtitle {
   margin-top: 8px;
+  font-size: 16px;
+  line-height: 24px;
   color: var(--muted-fg);
+  max-width: 60ch;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
